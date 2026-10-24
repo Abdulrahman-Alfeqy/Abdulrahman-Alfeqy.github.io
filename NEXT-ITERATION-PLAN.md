@@ -22,6 +22,7 @@ This backlog captures the improvements identified while reviewing the current po
 - [x] Use semantic buttons for zone navigation and anchors for project/contact links.
 - [x] Add visible keyboard focus, accessible dialog controls, and names/announcements where needed.
 - [x] Increase small mobile navigation labels while preserving the theme.
+- [x] Hide the decorative starfield and hero avatar from assistive technology.
 
 ## 4. Harden live GitHub rendering — complete
 
@@ -48,3 +49,4 @@ This backlog captures the improvements identified while reviewing the current po
 - [x] Main navigation and dialog controls use keyboard-operable semantics and visible focus styling.
 - [x] GitHub repository text is inserted as text, and unavailable API data has a placeholder state.
 - [x] Browser title, social preview image, and metadata describe the same current profile.
+- [ ] Add a persistent browser smoke-test workflow for navigation, XP progression, project descriptions, and mobile overflow.

@@ -9,8 +9,7 @@
 ══════════════════════════════════════════ */
 const LIVE = {
   github:  null,   // { repos, followers, following, bio, repoList[] }
-  medium:  null,   // { posts[] }
-  loading: { github: false, medium: false }
+  loading: { github: false }
 };
 
 /* ══════════════════════════════════════════
@@ -59,113 +58,10 @@ async function fetchGitHub() {
 }
 
 /* ══════════════════════════════════════════
-   MEDIUM RSS  — via rss2json.com (free)
-   Pulls: latest posts with title, desc, date, tags
-══════════════════════════════════════════ */
-async function fetchMedium() {
-  if (LIVE.medium || LIVE.loading.medium) return;
-  LIVE.loading.medium = true;
-
-  const mediumUrl = PORTFOLIO_CONFIG.contact.medium;
-  if (!mediumUrl || !mediumUrl.includes('medium.com')) {
-    LIVE.medium = {
-      posts: PORTFOLIO_CONFIG.blogPosts.map(p => ({
-        title: p.title, desc: p.desc, date: p.date, link: p.link, tags: []
-      }))
-    };
-    LIVE.loading.medium = false;
-    return;
-  }
-  const handle    = mediumUrl.split('@').pop();
-  const rssUrl    = `https://medium.com/feed/@${handle}`;
-
-  // Try multiple CORS proxies in order — no post limit unlike rss2json free tier
-  const proxies = [
-    { url: `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`, type: 'allorigins' },
-    { url: `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&count=50`, type: 'rss2json' },
-    { url: `https://corsproxy.io/?${encodeURIComponent(rssUrl)}`, type: 'raw' },
-  ];
-
-  function parseXML(xmlText) {
-    const parser = new DOMParser();
-    const xml    = parser.parseFromString(xmlText, 'text/xml');
-    const items  = Array.from(xml.querySelectorAll('item'));
-    return items.map(item => {
-      const raw  = item.querySelector('description')?.textContent || '';
-      const desc = raw.replace(/<[^>]*>/g, '').replace(/&[a-z]+;/gi, ' ').trim().slice(0, 160);
-      return {
-        title: item.querySelector('title')?.textContent?.trim() || 'Untitled',
-        desc:  desc ? desc + '…' : '',
-        date:  (() => { try { return new Date(item.querySelector('pubDate')?.textContent).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); } catch(e) { return ''; } })(),
-        link:  item.querySelector('link')?.textContent?.trim() || '#',
-        tags:  Array.from(item.querySelectorAll('category')).map(c => c.textContent).slice(0, 3)
-      };
-    });
-  }
-
-  for (let i = 0; i < proxies.length; i++) {
-    try {
-      const res  = await fetch(proxies[i].url);
-      const data = await res.json();
-
-      // AllOrigins: { contents: "<xml>" }
-      if (proxies[i].type === 'allorigins' && data.contents) {
-        const posts = parseXML(data.contents);
-        if (posts.length > 0) {
-          LIVE.medium = { posts };
-          console.log(`✅ Medium: ${posts.length} posts via AllOrigins`);
-          LIVE.loading.medium = false;
-          return;
-        }
-      }
-
-      // rss2json: { status: 'ok', items: [...] }
-      if (proxies[i].type === 'rss2json' && data.status === 'ok' && Array.isArray(data.items)) {
-        LIVE.medium = {
-          posts: data.items.map(item => ({
-            title: item.title,
-            desc:  item.description ? item.description.replace(/<[^>]*>/g, '').replace(/&[a-z]+;/gi, ' ').trim().slice(0, 160) + '…' : '',
-            date:  (() => { try { return new Date(item.pubDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }); } catch(e) { return ''; } })(),
-            link:  item.link,
-            tags:  (item.categories || []).slice(0, 3)
-          }))
-        };
-        console.log(`✅ Medium: ${LIVE.medium.posts.length} posts via rss2json`);
-        LIVE.loading.medium = false;
-        return;
-      }
-
-      // corsproxy: raw XML in response text
-      if (proxies[i].type === 'raw') {
-        const text  = await res.text();
-        const posts = parseXML(text);
-        if (posts.length > 0) {
-          LIVE.medium = { posts };
-          console.log(`✅ Medium: ${posts.length} posts via corsproxy`);
-          LIVE.loading.medium = false;
-          return;
-        }
-      }
-    } catch (err) {
-      console.warn(`Medium proxy[${i}] failed:`, err.message);
-    }
-  }
-
-  // All proxies failed — fall back to static config
-  console.warn('⚠️ All Medium proxies failed — using config fallback');
-  LIVE.medium = {
-    posts: PORTFOLIO_CONFIG.blogPosts.map(p => ({
-      title: p.title, desc: p.desc, date: p.date, link: p.link, tags: []
-    }))
-  };
-  LIVE.loading.medium = false;
-}
-/* ══════════════════════════════════════════
    PREFETCH — kicks off immediately on load
    Data is ready by the time user clicks a zone
 ══════════════════════════════════════════ */
 fetchGitHub();
-fetchMedium();
 
 /* ══════════════════════════════════════════
    RETRY HELPER
@@ -488,18 +384,15 @@ function bootFromConfig() {
   document.getElementById('t-tagline').textContent = p.tagline;
   document.getElementById('t-copy').textContent    = `© ${yr} ${p.name} — ALL RIGHTS RESERVED`;
   document.getElementById('hud-name').textContent  = `${p.avatarEmoji || '🛡️'} ${p.name.split(' ')[0].toUpperCase()}`;
-  document.getElementById('hud-level').textContent = p.level;
-  document.title = `${p.name} | Quest for the Code`;
+  document.getElementById('hud-level').textContent = formatLevel(p.level);
+  document.title = `${p.name} | ${p.title} | Quest for the Code`;
 
-  // Set blog count from config initially; live data will update it
-  const blogDesc = document.getElementById('blog-zone-desc');
-  if (blogDesc) blogDesc.textContent = `${PORTFOLIO_CONFIG.blogPosts.length} profiles available`;
+  const freelanceDesc = document.getElementById('freelance-zone-desc');
+  if (freelanceDesc) freelanceDesc.textContent = `${PORTFOLIO_CONFIG.freelanceProfiles.length} profiles available`;
+}
 
-  // Update blog count once Medium loads
-  retryWhenReady('medium', (md) => {
-    const bd = document.getElementById('blog-zone-desc');
-    if (bd) bd.textContent = `${md.posts.length} profiles available`;
-  });
+function formatLevel(level) {
+  return `LVL ${Number(level)} AI ENGINEER`;
 }
 
 /* ══════════════════════════════════════════
@@ -510,26 +403,25 @@ let xpLevel = 74;
 function gainXP(el) {
   playXPGain();
   xpLevel += 4;
-  
-  // Level Up Logic
-  if (xpLevel >= 100) {
-    xpLevel = xpLevel % 100; // Rollover XP
-    PORTFOLIO_CONFIG.profile.level += 1;
-    
-    // Update HUD
+
+  let leveledUp = false;
+  while (xpLevel >= 100) {
+    xpLevel -= 100;
+    PORTFOLIO_CONFIG.profile.level = Number(PORTFOLIO_CONFIG.profile.level) + 1;
+    leveledUp = true;
+  }
+
+  if (leveledUp) {
+    const levelLabel = formatLevel(PORTFOLIO_CONFIG.profile.level);
     const hudLevel = document.getElementById('hud-level');
     if (hudLevel) {
-      hudLevel.textContent = PORTFOLIO_CONFIG.profile.level;
+      hudLevel.textContent = levelLabel;
       hudLevel.style.color = 'var(--accent)';
       setTimeout(() => { hudLevel.style.color = ''; }, 500);
     }
-    
-    // Update panel if open
-    document.querySelectorAll('.stat-value.highlight').forEach(el => {
-      if (el.textContent.includes('🔥')) {
-        el.textContent = `${PORTFOLIO_CONFIG.profile.level} 🔥`;
-      }
-    });
+
+    const powerLevel = document.getElementById('power-level');
+    if (powerLevel) powerLevel.textContent = `${levelLabel} 🔥`;
   }
 
   document.getElementById('xp-bar').style.width = xpLevel + '%';
@@ -683,7 +575,7 @@ function renderAbout(el) {
       <div class="stat-box"><div class="stat-label">CLASS</div><div class="stat-value highlight">${p.title}</div></div>
       <div class="stat-box"><div class="stat-label">GUILD</div><div class="stat-value">${p.company}</div></div>
       <div class="stat-box"><div class="stat-label">REALM</div><div class="stat-value">${p.location}</div></div>
-      <div class="stat-box"><div class="stat-label">POWER LEVEL</div><div class="stat-value highlight">${p.level} 🔥</div></div>
+      <div class="stat-box"><div class="stat-label">POWER LEVEL</div><div class="stat-value highlight" id="power-level">${formatLevel(p.level)} 🔥</div></div>
       <div class="stat-box">
         <div class="stat-label">🐙 GITHUB REPOS <span style="color:var(--green); font-size:10px;">LIVE</span></div>
         <div class="stat-value highlight" id="ab-repos">${gh ? gh.repos : spinner('...')}</div>
@@ -696,6 +588,10 @@ function renderAbout(el) {
     <div class="section-label">HERO'S CREED</div>
     <div style="border-left:3px solid var(--purple); padding-left:14px; font-size:16px; color:var(--dim); line-height:1.8; font-style:italic;">
       "${p.creed}"
+    </div>
+    <div class="section-label" style="margin-top:22px;">LANGUAGES</div>
+    <div style="display:flex; flex-wrap:wrap; gap:8px;">
+      ${p.languages.map(language => `<span class="tag" style="border-color:var(--border); color:var(--border);">${language}</span>`).join('')}
     </div>
   `;
 
@@ -819,62 +715,41 @@ function buildRepoCards(repos) {
 
 /* ── FREELANCE PROFILES ─────── */
 function renderFreelanceProfiles(el) {
-  const c  = PORTFOLIO_CONFIG.contact;
-  const md = LIVE.medium;
+  const profiles = PORTFOLIO_CONFIG.freelanceProfiles;
+  const count = profiles.length;
 
   el.innerHTML = `
     <div class="panel-header">
       <span class="panel-icon">✍️</span>
       <div class="panel-title">FREELANCE PROFILES</div>
     </div>
-    <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px; flex-wrap:wrap;">
-      <div style="font-size:15px; color:var(--dim);">
-        Active across <span style="color:var(--green);">Freelance Platforms</span>
-        <span style="color:var(--green); font-size:10px; margin-left:6px;">⚡ LIVE</span>
-        <span id="blog-post-count" style="color:var(--purple);">
-          ${md ? ` · ${md.posts.length} posts` : ' · ⏳ loading...'}
-        </span>
-      </div>
-      <a href="https://khamsat.com/user/a_a_fky" target="_blank" class="back-btn" style="border-color:var(--green); color:var(--green); text-decoration:none; font-family:'Press Start 2P',monospace; font-size:7px; padding:7px 12px;">↗ ALL GIGS</a>
+    <div style="font-size:15px; color:var(--dim); margin-bottom:16px;">
+      Active across <span style="color:var(--green);">${count} freelance platforms</span>
     </div>
-    <div class="section-label">PUBLISHED SCROLLS</div>
-    <div id="blog-list">
-      ${md ? buildBlogCards(md.posts) : spinner('LOADING PROFILES...')}
+    <div class="section-label">ACTIVE FREELANCE PLATFORMS</div>
+    <div id="freelance-profile-list">
+      ${buildFreelanceProfileCards(profiles)}
     </div>
   `;
 
-  // Update map card count
-  if (md) {
-    const bd = document.getElementById('blog-zone-desc');
-    if (bd) bd.textContent = `${md.posts.length} articles published`;
-  }
-
-  if (!md) {
-    retryWhenReady('medium', (m) => {
-      const list = document.getElementById('blog-list');
-      const cnt  = document.getElementById('blog-post-count');
-      if (list) list.innerHTML = buildBlogCards(m.posts);
-      if (cnt)  cnt.textContent = ` · ${m.posts.length} posts`;
-      const bd = document.getElementById('blog-zone-desc');
-      if (bd) bd.textContent = `${m.posts.length} articles published`;
-    });
-  }
+  const zoneDesc = document.getElementById('freelance-zone-desc');
+  if (zoneDesc) zoneDesc.textContent = `${count} freelance profiles`;
 }
 
-function buildBlogCards(posts) {
-  if (!posts || posts.length === 0) return `<div style="color:var(--dim);font-size:15px;padding:12px;">No posts found.</div>`;
-  return posts.map((post, i) => `
-    <a class="blog-card" href="${post.link}" target="_blank">
+function buildFreelanceProfileCards(profiles) {
+  if (!profiles || profiles.length === 0) return `<div style="color:var(--dim);font-size:15px;padding:12px;">No freelance profiles listed.</div>`;
+  return profiles.map((profile, i) => `
+    <a class="blog-card" href="${profile.link}" target="_blank" rel="noopener noreferrer">
       <span class="blog-num">#${String(i + 1).padStart(2, '0')}</span>
       <div class="blog-body">
-        <div class="blog-title">${post.title}</div>
-        <div class="blog-desc">${post.desc}</div>
+        <div class="blog-title">${profile.title}</div>
+        <div class="blog-desc">${profile.desc}</div>
         <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:4px;">
-          <div class="blog-date">📅 ${post.date}</div>
-          ${post.tags.map(t => `<span style="font-size:11px;color:var(--purple);border:1px solid var(--purple);padding:1px 6px;">${t}</span>`).join('')}
+          <div class="blog-date">● ${profile.date}</div>
+          ${(profile.tags || []).map(tag => `<span style="font-size:11px;color:var(--purple);border:1px solid var(--purple);padding:1px 6px;">${tag}</span>`).join('')}
         </div>
       </div>
-      <span style="color:var(--green); font-size:18px; flex-shrink:0;">↗</span>
+      <span aria-hidden="true" style="color:var(--green); font-size:18px; flex-shrink:0;">↗</span>
     </a>
   `).join('');
 }
@@ -918,7 +793,6 @@ function renderAchievements(el) {
   const badges = PORTFOLIO_CONFIG.achievements;
   const p      = PORTFOLIO_CONFIG.profile;
   const gh     = LIVE.github;
-  const md     = LIVE.medium;
 
   el.innerHTML = `
     <div class="panel-header">
@@ -940,7 +814,7 @@ function renderAchievements(el) {
       <span style="color:var(--green); font-size:10px; margin-left:6px;">⚡ LIVE</span>
     </div>
     <div class="stat-grid">
-      <div class="stat-box"><div class="stat-label">YEARS EXP</div><div class="stat-value highlight">${p.yearsExp}</div></div>
+      <div class="stat-box"><div class="stat-label">CAREER START</div><div class="stat-value highlight">${p.careerStart}</div></div>
       <div class="stat-box"><div class="stat-label">PROJECTS SHIPPED</div><div class="stat-value highlight">${p.projectsShipped}</div></div>
       <div class="stat-box"><div class="stat-label">TECH STACK</div><div class="stat-value highlight">${p.techStackSize}</div></div>
       <div class="stat-box">
@@ -953,11 +827,11 @@ function renderAchievements(el) {
       </div>
       <div class="stat-box">
         <div class="stat-label">💼 FREELANCE PROFILES</div>
-        <div class="stat-value highlight" id="ac-posts">${md ? md.posts.length : '⏳'}</div>
+        <div class="stat-value highlight" id="ac-freelance-profiles">${PORTFOLIO_CONFIG.freelanceProfiles.length}</div>
       </div>
       <div class="stat-box">
-        <div class="stat-label">🤝 CLIENTS</div>
-        <div class="stat-value highlight">${p.mediumFollowers}</div>
+        <div class="stat-label">🤝 CLIENT RATING</div>
+        <div class="stat-value highlight">${p.clientRating}</div>
       </div>
       <div class="stat-box"><div class="stat-label">BOSS DIFFICULTY</div><div class="stat-value highlight">LEGENDARY 🔥</div></div>
     </div>
@@ -970,10 +844,6 @@ function renderAchievements(el) {
     if (f) f.textContent = g.followers;
   });
 
-  if (!md) retryWhenReady('medium', (m) => {
-    const posts = document.getElementById('ac-posts');
-    if (posts) posts.textContent = m.posts.length;
-  });
 }
 
 /* ── CONTACT ────────────────────────────── */
@@ -981,18 +851,17 @@ function renderContact(el) {
   const c  = PORTFOLIO_CONFIG.contact;
   const p  = PORTFOLIO_CONFIG.profile;
   const gh = LIVE.github;
-  const md = LIVE.medium;
+  const freelanceCount = PORTFOLIO_CONFIG.freelanceProfiles.length;
+  const phoneHref = c.phone.replace(/[^\d+]/g, '');
 
   const links = [
-    c.linkedin     ? { href: c.linkedin,            icon: '💼', label: 'LinkedIn',        value: (c.linkedin.split('/in/')[1] || 'View Profile').replace(/\/$/, '') } : null,
-    c.github       ? { href: c.github,              icon: '🐙', label: 'GitHub',          value: gh ? `@${c.github.split('/').filter(Boolean).pop()} · ${gh.repos} repos · ${gh.followers} followers` : '⏳ loading...', id: 'ct-github' } : null,
-    c.email        ? { href: `mailto:${c.email}`,   icon: '📧', label: 'Email',           value: c.email } : null,
-    c.phone        ? { href: `tel:${c.phone}`,      icon: '📱', label: 'Phone',           value: c.phone } : null,
-    c.medium       ? { href: c.medium,              icon: '📝', label: 'Freelance',       value: md ? `Freelance Profiles · ${md.posts.length} active platforms` : '⏳ loading...', id: 'ct-medium' } : null,
-    c.twitter      ? { href: c.twitter,             icon: '🐦', label: 'X / Twitter',     value: c.twitter } : null,
-    c.twitch       ? { href: c.twitch,              icon: '🎮', label: 'Twitch',          value: c.twitch } : null,
-    c.buymeacoffee ? { href: c.buymeacoffee,        icon: '☕', label: 'Buy Me a Coffee',  value: c.buymeacoffee } : null,
-    c.kofi         ? { href: c.kofi,                icon: '🧡', label: 'Ko-Fi',            value: c.kofi } : null,
+    c.linkedin      ? { href: c.linkedin,                 icon: '💼', label: 'LinkedIn',          value: c.linkedin.split('/in/').pop().replace(/\/$/, ''), external: true } : null,
+    c.github        ? { href: c.github,                   icon: '🐙', label: 'GitHub',            value: gh ? `@${c.github.split('/').filter(Boolean).pop()} · ${gh.repos} repos · ${gh.followers} followers` : '⏳ loading...', id: 'ct-github', external: true } : null,
+    c.credly        ? { href: c.credly,                   icon: '🏅', label: 'Credly',            value: 'View badges & credentials', external: true } : null,
+    c.email         ? { href: `mailto:${c.email}`,        icon: '📧', label: 'Email',             value: c.email } : null,
+    c.academicEmail ? { href: `mailto:${c.academicEmail}`,icon: '🎓', label: 'University Email', value: c.academicEmail } : null,
+    c.phone         ? { href: `tel:${phoneHref}`,         icon: '📱', label: 'Phone',             value: c.phone } : null,
+    c.kafiil        ? { href: c.kafiil,                   icon: '📝', label: 'Freelance',         value: `${freelanceCount} active platform profiles`, external: true } : null,
   ].filter(Boolean);
 
   el.innerHTML = `
@@ -1003,7 +872,7 @@ function renderContact(el) {
     <div class="section-label">REACH THE HERO</div>
     <div class="contact-grid">
       ${links.map(l => `
-        <a class="contact-item" href="${l.href}" target="_blank">
+        <a class="contact-item" href="${l.href}" ${l.external ? 'target="_blank" rel="noopener noreferrer"' : ''}>
           <span class="contact-icon">${l.icon}</span>
           <div style="min-width:0;">
             <div class="contact-label">${l.label}</div>
@@ -1018,12 +887,9 @@ function renderContact(el) {
       <span style="color:var(--text);">${p.status} — Reach out to begin the quest together!</span>
     </div>
     <div style="background:var(--panel); border:1px solid var(--dim); padding:18px;">
-      <div class="section-label" style="margin-top:0">LEAVE A MESSAGE</div>
-      <div id="form-feedback" style="display:none; margin-bottom:10px; font-size:15px;"></div>
-      <input id="msg-name"  type="text"  placeholder="Your Name..."           style="width:100%;background:#0a0a1a;border:1px solid var(--dim);color:var(--text);padding:9px;font-family:'VT323',monospace;font-size:16px;margin-bottom:9px;outline:none;display:block;">
-      <input id="msg-email" type="email" placeholder="Your Email..."           style="width:100%;background:#0a0a1a;border:1px solid var(--dim);color:var(--text);padding:9px;font-family:'VT323',monospace;font-size:16px;margin-bottom:9px;outline:none;display:block;">
-      <textarea id="msg-body" placeholder="Your message to the hero..."        style="width:100%;background:#0a0a1a;border:1px solid var(--dim);color:var(--text);padding:9px;font-family:'VT323',monospace;font-size:16px;height:75px;resize:none;outline:none;display:block;margin-bottom:9px;"></textarea>
-      <button id="msg-btn" onclick="sendMessage()" style="font-family:'Press Start 2P',monospace;font-size:8px;padding:9px 18px;background:transparent;border:2px solid var(--green);color:var(--green);cursor:pointer;">▶ SEND MESSAGE</button>
+      <div class="section-label" style="margin-top:0">SEND A MESSAGE BY EMAIL</div>
+      <div style="font-size:15px; color:var(--dim); line-height:1.6; margin-bottom:12px;">Your email app will open with a new message addressed directly to me.</div>
+      <a href="mailto:${c.email}?subject=Portfolio%20Inquiry" class="back-btn" style="display:inline-block;border-color:var(--green);color:var(--green);text-decoration:none;font-family:'Press Start 2P',monospace;font-size:8px;padding:10px 14px;">✉ EMAIL ABDULRAHMAN</a>
     </div>
   `;
 
@@ -1032,72 +898,6 @@ function renderContact(el) {
     if (el) el.textContent = `@Abdulrahman-Alfeqy · ${g.repos} repos · ${g.followers} followers`;
   });
 
-  if (!md) retryWhenReady('medium', (m) => {
-    const el = document.getElementById('ct-medium');
-    if (el) el.textContent = `Freelance Profiles · ${m.posts.length} active platforms`;
-  });
-}
-
-function sendMessage() {
-  const name  = document.getElementById('msg-name')?.value.trim();
-  const email = document.getElementById('msg-email')?.value.trim();
-  const body  = document.getElementById('msg-body')?.value.trim();
-  const btn   = document.getElementById('msg-btn');
-  const fb    = document.getElementById('form-feedback');
-
-  // Validate
-  if (!name || !email || !body) {
-    showDialog('SYSTEM', 'Please fill in your name, email and message before sending!');
-    return;
-  }
-  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  if (!emailOk) {
-    showDialog('SYSTEM', 'Please enter a valid email address!');
-    return;
-  }
-
-  // Read formspree URL from config
-  const formUrl = PORTFOLIO_CONFIG.contact.formspreeUrl;
-  if (!formUrl) {
-    showDialog('SYSTEM', 'Contact form not configured. Please reach out via email directly!');
-    return;
-  }
-
-  // Disable button & show sending state
-  btn.textContent    = '⏳ SENDING...';
-  btn.style.opacity  = '0.6';
-  btn.disabled       = true;
-
-  fetch(formUrl, {
-    method:  'POST',
-    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-    body:    JSON.stringify({ name, email, message: body })
-  })
-  .then(res => {
-    if (res.ok) {
-      // Success
-      document.getElementById('msg-name').value  = '';
-      document.getElementById('msg-email').value = '';
-      document.getElementById('msg-body').value  = '';
-      btn.textContent   = '✅ SENT!';
-      btn.style.borderColor = 'var(--green)';
-      showDialog('SYSTEM', 'Message delivered! The hero will respond to your email shortly. +50 XP awarded for making contact!');
-      setTimeout(() => {
-        btn.textContent   = '▶ SEND MESSAGE';
-        btn.style.opacity = '1';
-        btn.disabled      = false;
-      }, 3000);
-    } else {
-      return res.json().then(data => { throw new Error(data?.errors?.[0]?.message || 'Send failed'); });
-    }
-  })
-  .catch(err => {
-    btn.textContent   = '▶ SEND MESSAGE';
-    btn.style.opacity = '1';
-    btn.disabled      = false;
-    showDialog('SYSTEM', '⚠️ Message failed to send. Please use the Email button above to reach out directly!');
-    console.error('Formspree error:', err);
-  });
 }
 
 /* ══════════════════════════════════════════

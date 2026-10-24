@@ -13,40 +13,41 @@ const PORTFOLIO_CONFIG = {
   // ──────────────────────────────────────────
   profile: {
     name:            "Abdulrahman Alfeqy",
-    title:           "Machine Learning Developer & Data Analyst",
-    company:         "FlyRank AI",
-    tagline:         "Data Engineering ⚡ Predictive Modeling ⚡ Business Intelligence",
-    level:           "LVL 2 AI ENGINEER",
-    location:        "Egypt 🇪🇬",
-    status:          "Open to Freelance & Roles",
+    title:           "AI & Machine Learning Engineer",
+    company:         "Self-Employed",
+    tagline:         "Agentic AI & LLM Integration ⚡ Data Engineering ⚡ Full-Stack Django",
+    level:           3,
+    location:        "Menofia, Egypt 🇪🇬",
+    status:          "Open to Freelance & AI/ML Opportunities",
     avatar:          "images/avatar_warrior.png",
     avatarEmoji:     "⚔️",
-    bio:             "End-to-end data practitioner with academic specialization in Artificial Intelligence and hands-on experience engineering complete analytical systems — from raw source ingestion through automated ETL processes, dimensional data modeling, predictive machine learning pipelines, and production-grade business intelligence dashboards.",
-    creed:           "Motivated, hard-working, and ambitious — driven to build intelligent systems and robust AI models. Always learning, always building.",
-    yearsExp:        "2+",
+    bio:             "Third-year B.Sc. Artificial Intelligence student at Menofia University (Machine Intelligence) with a 3.16/4.0 GPA and an upward trend (3.59 latest semester). Builds agentic AI systems, retrieval-augmented reasoning pipelines, predictive ML models, full-stack Django applications, and end-to-end BI solutions. Currently studying through the University of Tokyo GCI World program and a fully funded BHN Academy scholarship with DataCamp.",
+    creed:           "I build grounded AI agents, useful software, and analytical systems that solve real problems — and keep learning with every quest.",
+    careerStart:     "2026",
     projectsShipped: "10+",
-    techStackSize:   "15+ Tools",
-    githubRepos:     "8",
-    mediumFollowers: "5+", // Repurposed for Freelance Profiles
+    techStackSize:   "30+ Tools",
+    githubRepos:     "7",
+    clientRating:    "5/5",
+    languages:       [
+      "Arabic — Native",
+      "English — Upper-Intermediate / Advanced (Professional Working Proficiency)",
+      "French — Intermediate",
+      "Japanese — Beginner",
+      "German — Beginner",
+    ],
   },
 
   // ──────────────────────────────────────────
   // 📡 CONTACT & SOCIAL LINKS
   // ──────────────────────────────────────────
   contact: {
-    linkedin:   "https://www.linkedin.com/in/abdulrahman-atef-424710337",
-    github:     "https://github.com/Abdulrahman-Alfeqy",
-    twitter:    "",
-    medium:     "https://khamsat.com/user/a_a_fky",
-    buymeacoffee: "",
-    kofi:       "",
-    twitch:     "",
-    website:    "",
-    email:      "abdulrahmanalfky@gmail.com",
-    phone:      "(+20) 01157504456",
-
-    // ── CONTACT FORM (Formspree) ──────────────────────────────────
-    formspreeUrl: "https://formspree.io/f/yourendpoint",
+    linkedin:      "https://www.linkedin.com/in/abdulrahman-alfeqy",
+    github:        "https://github.com/Abdulrahman-Alfeqy",
+    credly:        "https://credly.com/users/abdulrahman-atef",
+    email:         "abdulrahmanalfky@gmail.com",
+    academicEmail: "abdalrahaman.atef432024@ai.menofia.edu.eg",
+    phone:         "+20 1157504456",
+    kafiil:        "https://kafiil.com/u/Abdulrahman_Alfeqy",
   },
 
   // ──────────────────────────────────────────
@@ -68,9 +69,13 @@ const PORTFOLIO_CONFIG = {
   ],
 
   techTags: [
-    "Power BI", "DAX", "Power Query", "Advanced Excel", "Power Pivot",
-    "Python", "Scikit-Learn", "Pandas", "NumPy", "Streamlit",
-    "SQL", "Oracle 11g", "Data Modeling", "ETL Pipelines", "Agentic Systems", "AWS"
+    "Python", "Django", "Flask", "JavaScript", "HTML5", "CSS3", "C++", "Java / JADE", "Bash",
+    "Agentic AI", "LLM Integration", "Multi-Step Reasoning", "RAG", "Azure AI Projects SDK", "Foundry IQ", "FastMCP",
+    "Google Gemini API", "OpenRouter", "Groq", "GitHub Models", "Prompt Engineering", "Responsible AI",
+    "Scikit-Learn", "Feature Engineering", "OpenCV", "EasyOCR", "Hugging Face", "SMOTE",
+    "Pandas", "NumPy", "Matplotlib", "Seaborn", "Power BI", "DAX", "Power Query / M", "Tableau",
+    "Advanced Excel", "Power Pivot", "ETL", "Star / Snowflake Schema", "SQL", "PostgreSQL", "SQL Server", "Oracle 11g",
+    "Docker", "Cloudflare Tunnels", "Linux", "Git / GitHub", "Slack Bolt", "REST APIs", "Streamlit"
   ],
 
   // ──────────────────────────────────────────
@@ -78,25 +83,32 @@ const PORTFOLIO_CONFIG = {
   // ──────────────────────────────────────────
   experience: [
     {
-      icon:    "🤖",
-      title:   "Machine Learning Engineer",
-      company: "FlyRank AI",
-      date:    "Jul 2026 - Present",
-      desc:    "Selected for an intensive ML engineering track focused on production-grade pipeline architecture and model evaluation — building commercial Applied AI experience."
-    },
-    {
-      icon:    "🎓",
-      title:   "Data Analytics Trainee",
-      company: "NTI (National Telecommunication Institute)",
-      date:    "Apr - May 2026",
-      desc:    "Completed 120-hour intensive training program (90 technical, 30 freelance). Gained hands-on experience in Microsoft SQL Server, Excel, Power BI, Tableau, and Python."
-    },
-    {
       icon:    "💻",
-      title:   "Data Analyst & ML Developer",
-      company: "Freelance",
+      title:   "Freelance Data Analyst & Full-Stack Developer",
+      company: "Self-Employed · Egypt (Remote)",
       date:    "May 2026 - Present",
-      desc:    "Delivered BI and data engineering solutions — ETL pipelines, Power BI dashboards, and dimensional data models — across heterogeneous client datasets in retail, finance, and operations sectors."
+      desc:    "Deliver BI and data-engineering solutions for retail, finance, and operations using automated Power Query ETL, Star Schema models, Power BI dashboards, and DAX time intelligence (YoY, QoQ, rolling 12-month). Built and deployed Honor Board for Al-Wahhab Center for Quran Memorization through Kafiil (Sep–Oct 2026): a responsive, branch-filterable Django/PostgreSQL student display and secure weekly-update admin panel. Delivered on schedule and earned a 5/5 client rating."
+    },
+    {
+      icon:    "🤖",
+      title:   "Machine Learning Engineering Intern",
+      company: "FlyRank AI · Remote",
+      date:    "Jul 1 - Sep 23, 2026 · 12 weeks",
+      desc:    "Completed FlyRank AI’s intensive 12-week ML engineering internship under CEO Alen Malkoc. Worked on model evaluation, feature engineering, production-grade pipeline architecture, and end-to-end ML pipeline design across heterogeneous datasets."
+    },
+    {
+      icon:    "🌐",
+      title:   "Web Development Trainee",
+      company: "Information Technology Institute (ITI), CREATIVA Menofia",
+      date:    "Jul 9 - Aug 30, 2026 · 126 hours",
+      desc:    "Completed Web Development using Python & Generative AI: client-side technologies (42h), PostgreSQL (18h), Python OOP (24h), Django (24h), Generative AI and prompt engineering (6h), vibe coding (6h), and freelancing (6h). Applied the stack in CARVIX and the Honor Board client project."
+    },
+    {
+      icon:    "📊",
+      title:   "Data Analysis Trainee",
+      company: "National Telecommunication Institute (NTI)",
+      date:    "Apr - May 2026 · 90+ contact hours",
+      desc:    "Completed applied training across the analytical workflow at a nationally accredited telecom institute. Built reporting and data workflows using Microsoft SQL Server, relational database fundamentals, Python (Pandas, Matplotlib), Power BI, DAX, Tableau, and advanced Excel."
     }
   ],
 
@@ -105,156 +117,207 @@ const PORTFOLIO_CONFIG = {
   // ──────────────────────────────────────────
   projects: [
     {
-      name: "📊 METRICALIST: Mobile Game Analytics",
-      desc: "Power BI Dashboard. Transformed raw in-app purchase data into a structured monetization intelligence system using advanced DAX and Power Query.",
-      tags: ["Power BI", "DAX", "Power Query"],
+      name: "🛡️ Cyber-Intel AI Agent",
+      desc: "Microsoft Agents League submission for enterprise security. Built on Azure AI Projects SDK with Foundry IQ retrieval-augmented generation to ground policy decisions and automate Tier-1 incident response. FastMCP threat-intelligence tools run over Cloudflare Quick Tunnels (SSE / streamable HTTP) with human approval and no static infrastructure.",
+      tags: ["Python", "Azure AI Projects SDK", "Foundry IQ", "FastMCP", "Cloudflare Tunnels"],
+      link: "https://github.com/Abdulrahman-Alfeqy/cyber-intel-agent"
+    },
+    {
+      name: "🕵️ AgentZero — Slack Credential Leak Detection",
+      desc: "Real-time Slack security agent combining regex and AI semantic detection for 15+ credential and sensitive-data patterns. Includes a Flask/Chart.js compliance dashboard, deduplicated alerts, false-positive feedback, failover across four AI providers, audit slash commands, PDF reports, and an MCP server.",
+      tags: ["Python", "Slack Bolt", "FastMCP", "Flask", "Google GenAI", "Docker"],
+      link: "https://github.com/Abdulrahman-Alfeqy/AgentZero"
+    },
+    {
+      name: "🏠 HouseHub+ — AI Public Housing Allocation",
+      desc: "USAII Global AI Hackathon anti-fraud housing system (63/70). A RandomForestRegressor scores applicant housing need from 0–100; OpenCV document inspection, SHA-256 PII hashing, and dual citizen/admin portals support safer eligibility review.",
+      tags: ["Python", "Scikit-Learn", "Streamlit", "OpenCV", "EasyOCR", "Folium"],
+      link: "https://github.com/Abdulrahman-Alfeqy/HouseHub-"
+    },
+    {
+      name: "🚗 CARVIX — Smart Vehicle Maintenance",
+      desc: "Full-stack, role-based vehicle maintenance platform for Owners, Technicians, and Administrators, covering vehicles, maintenance, appointments, technician workflows, and spare-parts inventory. Uses Django MVT with service and selector layers, PostgreSQL, demo data, automated tests, and a Gemini assistant restricted to each user’s permissions.",
+      tags: ["Python", "Django", "PostgreSQL", "Google Gemini API", "Docker"],
+      link: "https://github.com/Abdulrahman-Alfeqy/carvix-smart-maintenance"
+    },
+    {
+      name: "🏅 Honor Board — Quran Center Student Recognition",
+      desc: "Client-delivered application for Al-Wahhab Center for Quran Memorization. Responsive, branch-filterable student display following the center’s visual identity, plus a secure admin panel for weekly record updates. Delivered on schedule with a 5/5 client rating.",
+      tags: ["Python", "Django", "PostgreSQL", "Full-Stack", "Kafiil Client Project"],
+      link: "https://kafiil.com/u/Abdulrahman_Alfeqy"
+    },
+    {
+      name: "🛒 FOODMART — Multi-Year Retail Intelligence",
+      desc: "Automated ETL and Star Schema consolidating 270,000+ retail records across 19 stores in the USA, Mexico, and Canada. YoY, QoQ, and rolling-12-month measures cut month-end reconciliation time by 70%.",
+      tags: ["Power BI", "Power Query / M", "DAX", "Star Schema", "ETL"],
       link: ""
     },
     {
-      name: "🛒 FOODMART: Retail Sales System",
-      desc: "Multi-Source Retail Intelligence System. Designed Star Schema and automated ETL pipelines for multi-year transactional data.",
-      tags: ["Power BI", "Star Schema", "ETL"],
+      name: "🛍️ Olist E-Commerce Analysis — Delivery & Customer Insights",
+      desc: "Cleaned and analyzed 98,199 eligible Brazilian marketplace orders (2016–2018), covering 94,983 customers and BRL 13.49M in product revenue. Late deliveries were 6.8% of orders and averaged 2.27/5 reviews versus 4.29 for on-time deliveries; only 3% of customers ordered again. Includes safe multi-table joins, data-quality checks, 12 charts, and retention and logistics recommendations.",
+      tags: ["Python", "Pandas", "Jupyter", "Matplotlib", "EDA", "Data Cleaning"],
+      link: "https://github.com/Abdulrahman-Alfeqy/olist-ecommerce-analysis"
+    },
+    {
+      name: "📊 METRICALIST — Mobile Game Monetization",
+      desc: "Player-monetization analytics with Power Query ingestion, Whale/Dolphin/Minnow segmentation, ARPU and payer-conversion measures, and cohort-retention matrices comparing country and game genre.",
+      tags: ["Power BI", "DAX", "Power Query", "Cohort Analysis"],
       link: ""
     },
     {
       name: "📈 Executive Financial Reporting",
-      desc: "Interactive executive reporting environment built entirely within Microsoft Excel using Power Pivot and advanced UI engineering.",
+      desc: "Interactive executive reporting environment built in Microsoft Excel using Power Pivot, advanced DAX, and custom interface design.",
       tags: ["Advanced Excel", "Power Pivot", "DAX"],
       link: ""
     },
     {
-      name: "🛡️ Cyber-Intel AI Agent",
-      desc: "Agentic AI for Enterprise Security submitted to Microsoft Agents League Hackathon. Enforces corporate security policies via Foundry IQ retrieval with live cloud threat intelligence.",
-      tags: ["Python", "Azure AI", "FastMCP", "Agentic Systems"],
-      link: "https://github.com/Abdulrahman-Alfeqy/cyber-intel-agent"
-    },
-    {
-      name: "🕵️‍♂️ Agent Zero",
-      desc: "Real-time credential leak detection and remediation for Slack. Hybrid regex and AI semantic detection.",
-      tags: ["Python", "Slack API", "Gemini AI", "FastMCP"],
-      link: "https://github.com/Abdulrahman-Alfeqy/AgentZero"
-    },
-    {
-      name: "📊 ML Studio",
-      desc: "A sleek, interactive Machine Learning web application built with Streamlit. Allows dataset upload, EDA, and training multiple ML models.",
-      tags: ["Python", "Streamlit", "Scikit-Learn", "Pandas"],
-      link: "https://github.com/Abdulrahman-Alfeqy/ML_Project"
-    },
-    {
-      name: "🏠 HouseHub+",
-      desc: "Anti-Fraud Public Housing Allocation System built for the USAII Global AI Hackathon (Scored 63/70). Combines deterministic ML scoring with Computer Vision forgery detection (PrivacyShield, DocumentInspector, RankingEngine).",
-      tags: ["Python", "Streamlit", "Scikit-Learn", "OpenCV"],
-      link: "https://github.com/Abdulrahman-Alfeqy/HouseHub-"
-    },
-    {
       name: "⚙️ Automated ML Evaluation Pipeline",
-      desc: "End-to-end Python ML pipeline automation reducing manual evaluation time to a single run. Includes dataset ingestion, preprocessing, classification, and SMOTE.",
+      desc: "Five-module system automating dataset ingestion, preprocessing, multi-algorithm classification, and reporting with SMOTE imbalance correction — reducing manual model evaluation from hours to a single run.",
       tags: ["Python", "Scikit-Learn", "Streamlit", "Pandas", "SMOTE"],
       link: ""
     },
-
+    {
+      name: "📊 ML Studio — Interactive ML Web App",
+      desc: "No-code ML experimentation app for CSV/Excel upload, EDA and correlation heatmaps, preprocessing, seven classification algorithms, regression, and K-Means clustering.",
+      tags: ["Python", "Streamlit", "Pandas", "NumPy", "Scikit-Learn", "imbalanced-learn"],
+      link: "https://github.com/Abdulrahman-Alfeqy/ML_Project"
+    },
     {
       name: "🤖 Multi-Agent System (JADE)",
-      desc: "Developed multi-agent systems using JADE, including autonomous behaviours and inter-agent communication using Sender/Receiver agents with ACL messages.",
-      tags: ["Java", "JADE", "Multi-Agent"],
+      desc: "Java multi-agent systems with autonomous behaviours and inter-agent communication using Sender/Receiver agents and ACL messages.",
+      tags: ["Java", "JADE", "Multi-Agent Systems"],
       link: ""
     },
   ],
 
   // ──────────────────────────────────────────
-  // ✍️ BLOG POSTS (Medium — @thecodebean) -> Repurposed to Freelance Profiles
+  // ✍️ FREELANCE PROFILES
   // ──────────────────────────────────────────
-  blogPosts: [
+  freelanceProfiles: [
     {
-      title: "Khamsat Profile",
-      desc:  "Freelance services and gigs on Khamsat platform.",
+      title: "Mostaql",
+      desc:  "Independent projects and professional services on Mostaql.",
       date:  "Active",
-      link:  "https://khamsat.com/user/a_a_fky"
+      link:  "https://mostaql.com/u/A_A_Alfeqy",
+      tags:  []
     },
     {
-      title: "Fiverr Profile",
-      desc:  "Global freelance services on Fiverr.",
+      title: "Khamsat",
+      desc:  "Freelance services and gigs on Khamsat.",
       date:  "Active",
-      link:  "https://www.fiverr.com/sellers/a_a_fky"
+      link:  "https://khamsat.com/user/a_a_fky",
+      tags:  []
+    },
+    {
+      title: "Nafezly",
+      desc:  "Freelance profile and services on Nafezly.",
+      date:  "Active",
+      link:  "https://nafezly.com/u/Abdulrahman_Alfeqy",
+      tags:  []
+    },
+    {
+      title: "Kafiil",
+      desc:  "Freelance profile and client projects on Kafiil.",
+      date:  "Active",
+      link:  "https://kafiil.com/u/Abdulrahman_Alfeqy",
+      tags:  []
+    },
+    {
+      title: "Freelancer",
+      desc:  "Projects and bids on Freelancer.",
+      date:  "Active",
+      link:  "https://www.freelancer.com/u/AbdulrahmanAteff",
+      tags:  []
     },
     {
       title: "Freelance Yard",
       desc:  "Freelance profile on Freelance Yard.",
       date:  "Active",
-      link:  "https://freelanceyard.com/en/freelancers/abdulrahman-atef-2"
-    },
-    {
-      title: "Freelancer.com",
-      desc:  "Projects and bids on Freelancer.",
-      date:  "Active",
-      link:  "https://www.freelancer.com/u/AbdulrahmanAteff"
-    },
-    {
-      title: "Mostaql Profile",
-      desc:  "Independent projects on Mostaql.",
-      date:  "Active",
-      link:  "https://mostaql.com/u/A_A_Alfeqy"
+      link:  "https://freelanceyard.com/en/freelancers/abdulrahman-atef-2",
+      tags:  []
     },
   ],
 
   // ──────────────────────────────────────────
-  // 🎓 EDUCATION
+  // 🎓 EDUCATION, TRAINING & CERTIFICATIONS
   // ──────────────────────────────────────────
   education: [
     {
       icon:   "🏛️",
-      degree: "BSc in Artificial Intelligence",
-      school: "Menoufia University (Machine Intelligence Dept.)",
-      year:   "2024-2028",
-      desc:   "GPA: 3.59 (Semester) / 3.16 (Cumulative). Studied: Data Science & Analytics (A+), Computer Networks (A+), Intro to ML (A-), Database Systems (A-). Programmed Algorithms, OOP, and Structured logic in C++. Explored AI Principles in Java. Built Data Science models in Python and Oracle SQL."
+      degree: "B.Sc. Artificial Intelligence — Machine Intelligence",
+      school: "Menofia University, Faculty of Artificial Intelligence",
+      year:   "2024-2028 · Third Year",
+      desc:   "Cognitive Security & Threat Intelligence track. GPA: 3.16/4.0 (Very Good), with 72 credits earned and a 3.59 latest-semester GPA. Grades include Data Science & Analytics 100% (A+), Computer Networks 95% (A+), Programming for Data Science 94% (A), Oracle Database Systems 88% (A−), Introduction to ML 87% (A−), and Digital Image Processing 85% (A−). Fall 2026 coursework: Deep Learning, Computer Vision, Robotics, Logic Programming, Automata & Complexity Theory, and Cybersecurity Fundamentals."
+    },
+    {
+      icon:   "🌏",
+      degree: "GCI World 2026 — In Progress",
+      school: "Matsuo & Iwasawa Laboratory, The University of Tokyo (Omnicampus)",
+      year:   "Sep 2026 - Present",
+      desc:   "Online data science and AI program for international students."
+    },
+    {
+      icon:   "🎓",
+      degree: "BDIF Fully Funded Scholarship — In Progress",
+      school: "BHN Academy (Bechem Humanitarian Network e.V.) with DataCamp, Google & Coursera",
+      year:   "Oct 2026 - Present",
+      desc:   "Enrolled in a six-month, self-paced professional certification program; DataCamp courses unlocked."
+    },
+    {
+      icon:   "🌐",
+      degree: "Web Development using Python & Generative AI · 126 hours",
+      school: "Information Technology Institute (ITI), CREATIVA Menofia",
+      year:   "Jul 9 - Aug 30, 2026",
+      desc:   "Client-side technologies, PostgreSQL, Python OOP, Django, Generative AI and prompt engineering, vibe coding, and freelancing."
     },
     {
       icon:   "☁️",
-      degree: "AWS Machine Learning Foundations",
-      school: "Amazon Web Services (AWS)",
-      year:   "Jul 2025",
-      desc:   "Completed Art of the Possible, ML Learning Plan, Terminology and Process, Planning ML Projects, and ML Essentials for Business/Technical Decision Makers."
+      degree: "Machine Learning Foundations & Learning Plan",
+      school: "Amazon Web Services (AWS) / AWS Educate",
+      year:   "Jul-Sep 2025",
+      desc:   "AWS Educate Machine Learning Foundations badge; ML Learning Plan, ML Essentials for Business & Technical Decision Makers, Planning a Machine Learning Project, ML Terminology and Process, and Art of the Possible."
     },
     {
       icon:   "📜",
-      degree: "Python Data Science Track",
+      degree: "Python & Machine Learning Certificates",
       school: "DataCamp",
-      year:   "Jun - Jul 2026",
-      desc:   "Earned 'Intermediate Python' (Jul 2026) and 'Introduction to Python' (Jun 2026) certifications focusing on Pandas, NumPy, and core data engineering."
-    },
-    {
-      icon:   "🛡️",
-      degree: "CyberSecurity & Linux",
-      school: "Satr / Tuwaiq Academy",
-      year:   "Apr 2026",
-      desc:   "Completed Intro to CyberSecurity, Kali Linux Intro, Linux 101, and Linux: Files And Permissions."
+      year:   "Jun-Aug 2026",
+      desc:   "Introduction to Python, Intermediate Python, Supervised Learning with scikit-learn, and Unsupervised Learning in Python."
     },
     {
       icon:   "🤖",
       degree: "AI Skills Fest 2026",
       school: "Microsoft",
       year:   "Jun 2026",
-      desc:   "Credentialed in AI Ethics, AI Literacy, Prompt Engineering, and Workflow Automation."
+      desc:   "AI Ethics, AI Literacy, Applied AI, Prompt Engineering, Responsible AI, and Workflow Automation."
+    },
+    {
+      icon:   "🛡️",
+      degree: "Cybersecurity, Linux & Programming Certificates",
+      school: "Satr / Tuwaiq Academy",
+      year:   "2024-Apr 2026 · Sep 2026",
+      desc:   "Introduction to Cybersecurity, Linux 101, Linux Files and Permissions, Kali Linux, Secure Shell (SSH) 101, Threats, Attacks & Vulnerabilities, C++ 101, Python 101, and Intro to Programming."
     }
   ],
 
   specializations: [
-    { icon: "🤖", name: "AI ENGINEER",       desc: "Machine Learning & Deep Learning" },
-    { icon: "🌐", name: "AGENTIC SYSTEMS",   desc: "Multi-Agent workflows & JADE" },
-    { icon: "🏗",  name: "PYTHON EXPERT",     desc: "Data Science & Backend" },
-    { icon: "📝", name: "FREELANCER",        desc: "Active across 5 platforms" },
+    { icon: "🤖", name: "AI & ML ENGINEER",  desc: "Predictive ML, LLM integration & grounded agents" },
+    { icon: "🌐", name: "AGENTIC AI",        desc: "RAG, multi-step reasoning & multi-agent systems" },
+    { icon: "🏗",  name: "FULL-STACK DJANGO", desc: "Python, Django, PostgreSQL & REST APIs" },
+    { icon: "📊", name: "DATA & BI",          desc: "ETL, dimensional models, Power BI & DAX" },
+    { icon: "📝", name: "FREELANCER",         desc: "Active across six freelance platforms" },
   ],
 
   // ──────────────────────────────────────────
   // 🏆 ACHIEVEMENTS
   // ──────────────────────────────────────────
   achievements: [
-    { icon: "🤖", name: "ML ENGINEER",       desc: "Working at FlyRank AI" },
-    { icon: "🌐", name: "USAII HACKATHON",   desc: "Global AI Hackathon 2026 (Scored 63/70)" },
-    { icon: "🏆", name: "MS AGENTS LEAGUE",  desc: "Microsoft Hackathon 2026 Submission" },
-    { icon: "🎓", name: "AI SCHOLAR",        desc: "Excellent GPA in AI Faculty" },
-    { icon: "📜", name: "CERTIFIED",         desc: "DataCamp, AWS & Microsoft Certifications" },
-    { icon: "💼", name: "FREELANCE PRO",     desc: "Top rated across platforms" },
+    { icon: "🛡️", name: "MICROSOFT AGENTS LEAGUE", desc: "June 2026 individual submission: agentic AI for enterprise security" },
+    { icon: "🌐", name: "USAII GLOBAL AI HACKATHON", desc: "Public-sector AI & ML fraud detection · team of four · 63/70" },
+    { icon: "🏅", name: "REASONING AGENTS BADGE", desc: "Global AI Community · Microsoft Foundry · July 2026" },
+    { icon: "🎓", name: "AI SCHOLAR", desc: "Menofia University AI student · GPA 3.16/4.0 · 3.59 latest semester" },
+    { icon: "🌐", name: "ITI WEB DEVELOPMENT", desc: "Completed intensive 126-hour Python, Django & Generative AI program" },
+    { icon: "💼", name: "CLIENT PROJECT DELIVERED", desc: "Honor Board delivered on schedule · client rating 5/5" },
   ],
 
 };

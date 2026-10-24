@@ -16,6 +16,8 @@ const PORTFOLIO_CONFIG = {
     title:           "AI & Machine Learning Engineer",
     company:         "Self-Employed",
     tagline:         "Agentic AI & LLM Integration ⚡ Data Engineering ⚡ Full-Stack Django",
+    heroContext:     "Third-year B.Sc. AI student at Menofia University · Open to freelance & AI/ML opportunities",
+    resumeUrl:       "assets/resume.pdf",
     level:           3,
     location:        "Menofia, Egypt 🇪🇬",
     status:          "Open to Freelance & AI/ML Opportunities",
@@ -51,31 +53,25 @@ const PORTFOLIO_CONFIG = {
   },
 
   // ──────────────────────────────────────────
-  // ⚡ SKILLS (name + proficiency 0–100)
+  // ⚡ SKILLS (grouped by applied area; no unsupported percentage scores)
   // ──────────────────────────────────────────
   skills: [
-    { name: "Power BI / DAX",  pct: 95 },
-    { name: "Python / Pandas", pct: 95 },
-    { name: "Scikit-Learn",    pct: 90 },
-    { name: "SQL / Oracle 11g",pct: 90 },
-    { name: "Advanced Excel",  pct: 95 },
-    { name: "Streamlit",       pct: 85 },
-    { name: "Data Modeling",   pct: 90 },
-    { name: "ETL Pipelines",   pct: 85 },
-    { name: "Agentic Systems", pct: 85 },
-    { name: "C++ (OOP)",       pct: 80 },
-    { name: "Java (JADE)",     pct: 80 },
-    { name: "AWS / Cloud",     pct: 75 },
-  ],
-
-  techTags: [
-    "Python", "Django", "Flask", "JavaScript", "HTML5", "CSS3", "C++", "Java / JADE", "Bash",
-    "Agentic AI", "LLM Integration", "Multi-Step Reasoning", "RAG", "Azure AI Projects SDK", "Foundry IQ", "FastMCP",
-    "Google Gemini API", "OpenRouter", "Groq", "GitHub Models", "Prompt Engineering", "Responsible AI",
-    "Scikit-Learn", "Feature Engineering", "OpenCV", "EasyOCR", "Hugging Face", "SMOTE",
-    "Pandas", "NumPy", "Matplotlib", "Seaborn", "Power BI", "DAX", "Power Query / M", "Tableau",
-    "Advanced Excel", "Power Pivot", "ETL", "Star / Snowflake Schema", "SQL", "PostgreSQL", "SQL Server", "Oracle 11g",
-    "Docker", "Cloudflare Tunnels", "Linux", "Git / GitHub", "Slack Bolt", "REST APIs", "Streamlit"
+    {
+      group: "AI & MACHINE LEARNING",
+      items: ["Agentic AI", "LLM Integration", "RAG", "Multi-Step Reasoning", "Scikit-Learn", "Feature Engineering", "OpenCV", "EasyOCR", "Hugging Face", "SMOTE"]
+    },
+    {
+      group: "DATA & BUSINESS INTELLIGENCE",
+      items: ["Python", "Pandas", "NumPy", "Matplotlib", "Seaborn", "Power BI", "DAX", "Power Query / M", "Tableau", "Advanced Excel", "Power Pivot", "ETL", "Star / Snowflake Schema"]
+    },
+    {
+      group: "SOFTWARE & BACKEND",
+      items: ["Django", "Flask", "JavaScript", "HTML5", "CSS3", "C++", "Java / JADE", "Bash", "REST APIs", "SQL", "PostgreSQL", "SQL Server", "Oracle 11g"]
+    },
+    {
+      group: "AGENT PLATFORMS & ENGINEERING TOOLS",
+      items: ["Azure AI Projects SDK", "Foundry IQ", "FastMCP", "Google Gemini API", "OpenRouter", "Groq", "GitHub Models", "Prompt Engineering", "Responsible AI", "Docker", "Cloudflare Tunnels", "Linux", "Git / GitHub", "Slack Bolt", "Streamlit"]
+    }
   ],
 
   // ──────────────────────────────────────────
@@ -144,7 +140,7 @@ const PORTFOLIO_CONFIG = {
       name: "🏅 Honor Board — Quran Center Student Recognition",
       desc: "Client-delivered application for Al-Wahhab Center for Quran Memorization. Responsive, branch-filterable student display following the center’s visual identity, plus a secure admin panel for weekly record updates. Delivered on schedule with a 5/5 client rating.",
       tags: ["Python", "Django", "PostgreSQL", "Full-Stack", "Kafiil Client Project"],
-      link: "https://kafiil.com/u/Abdulrahman_Alfeqy"
+      link: ""
     },
     {
       name: "🛒 FOODMART — Multi-Year Retail Intelligence",

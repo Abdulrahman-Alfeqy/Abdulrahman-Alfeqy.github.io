@@ -10,6 +10,8 @@
 [![GitHub](https://img.shields.io/badge/GitHub-Abdulrahman--Alfeqy-FFD700?style=for-the-badge&logo=github)](https://github.com/Abdulrahman-Alfeqy)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Abdulrahman_Alfeqy-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/abdulrahman-alfeqy)
 
+![Portfolio social preview](images/og-image.png)
+
 </div>
 
 ---
@@ -28,6 +30,7 @@ The site is built with **HTML, CSS, and vanilla JavaScript**. It has no framewor
 | Repository | [Abdulrahman-Alfeqy.github.io](https://github.com/Abdulrahman-Alfeqy/Abdulrahman-Alfeqy.github.io) |
 | LinkedIn | [abdulrahman-alfeqy](https://www.linkedin.com/in/abdulrahman-alfeqy) |
 | GitHub profile | [Abdulrahman-Alfeqy](https://github.com/Abdulrahman-Alfeqy) |
+| Resume | [Download PDF](assets/resume.pdf) |
 | Email | [abdulrahmanalfky@gmail.com](mailto:abdulrahmanalfky@gmail.com) |
 | Credly | [Abdulrahman Atef](https://credly.com/users/abdulrahman-atef) |
 
@@ -45,9 +48,12 @@ The portfolio also describes client and analytics work, including the Honor Boar
 ## Portfolio Features
 
 - Eight RPG-inspired sections for profile, skills, experience, projects, freelance profiles, education, achievements, and contact.
+- First-screen resume download and direct email action, alongside the game entry button.
+- Skills grouped by applied area instead of self-assigned percentage scores.
 - Live GitHub repository and follower data, with a placeholder state if the API is unavailable.
 - Email-first contact links for personal and university email.
 - Animated starfield, XP progression, HUD, generated sound effects, and optional ambient audio controls.
+- Keyboard-operable zone navigation, project links, and dialog controls with visible focus states.
 - Responsive layouts for desktop and mobile.
 
 ## Freelance Profiles
@@ -76,7 +82,7 @@ Then open [http://localhost:8000](http://localhost:8000). The main profile conte
 
 ## Next Improvement Cycle
 
-See [NEXT-ITERATION-PLAN.md](NEXT-ITERATION-PLAN.md) for the review backlog covering project evidence, first-screen resume/contact access, accessibility, safe GitHub rendering, and social preview updates.
+See [NEXT-ITERATION-PLAN.md](NEXT-ITERATION-PLAN.md) for optional future project case studies and visual evidence when shareable materials become available. Projects without public links remain included and are labeled accordingly.
 
 ---
 

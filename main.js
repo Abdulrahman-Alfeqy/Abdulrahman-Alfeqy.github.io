@@ -380,8 +380,12 @@ function bootFromConfig() {
 
   document.getElementById('t-name').textContent    = `⚔ ${p.name} ⚔`;
   document.getElementById('t-avatar').innerHTML    = `<img src="${p.avatar}" style="width: 80px; height: 80px; image-rendering: pixelated; border-radius: 8px;">`;
-  document.getElementById('t-role').textContent    = `${p.title} • ${p.company}`;
+  document.getElementById('t-role').textContent    = p.title;
+  document.getElementById('t-level').textContent   = formatLevel(p.level);
   document.getElementById('t-tagline').textContent = p.tagline;
+  document.getElementById('t-context').textContent = p.heroContext;
+  document.getElementById('t-resume').href         = p.resumeUrl;
+  document.getElementById('t-contact').href        = `mailto:${PORTFOLIO_CONFIG.contact.email}`;
   document.getElementById('t-copy').textContent    = `© ${yr} ${p.name} — ALL RIGHTS RESERVED`;
   document.getElementById('hud-name').textContent  = `${p.avatarEmoji || '🛡️'} ${p.name.split(' ')[0].toUpperCase()}`;
   document.getElementById('hud-level').textContent = formatLevel(p.level);
@@ -540,13 +544,6 @@ function showZone(zone) {
   };
   if (renderers[zone]) renderers[zone](inner);
 
-  if (zone === 'skills') {
-    setTimeout(() => {
-      document.querySelectorAll('.skill-fill').forEach(el => {
-        el.style.width = el.dataset.pct + '%';
-      });
-    }, 100);
-  }
 }
 
 /* ══════════════════════════════════════════
@@ -578,11 +575,11 @@ function renderAbout(el) {
       <div class="stat-box"><div class="stat-label">POWER LEVEL</div><div class="stat-value highlight" id="power-level">${formatLevel(p.level)} 🔥</div></div>
       <div class="stat-box">
         <div class="stat-label">🐙 GITHUB REPOS <span style="color:var(--green); font-size:10px;">LIVE</span></div>
-        <div class="stat-value highlight" id="ab-repos">${gh ? gh.repos : spinner('...')}</div>
+        <div class="stat-value highlight" id="ab-repos">⏳</div>
       </div>
       <div class="stat-box">
         <div class="stat-label">🐙 GH FOLLOWERS <span style="color:var(--green); font-size:10px;">LIVE</span></div>
-        <div class="stat-value highlight" id="ab-followers">${gh ? gh.followers : spinner('...')}</div>
+        <div class="stat-value highlight" id="ab-followers">⏳</div>
       </div>
     </div>
     <div class="section-label">HERO'S CREED</div>
@@ -595,37 +592,33 @@ function renderAbout(el) {
     </div>
   `;
 
-  if (!gh) {
-    retryWhenReady('github', (g) => {
-      const r = document.getElementById('ab-repos');
-      const f = document.getElementById('ab-followers');
-      if (r) r.textContent = g.repos;
-      if (f) f.textContent = g.followers;
-    });
-  }
+  const updateGitHubStats = (g) => {
+    const r = document.getElementById('ab-repos');
+    const f = document.getElementById('ab-followers');
+    if (r) r.textContent = String(g.repos);
+    if (f) f.textContent = String(g.followers);
+  };
+  if (gh) updateGitHubStats(gh);
+  else retryWhenReady('github', updateGitHubStats);
 }
 
 /* ── SKILLS ─────────────────────────────── */
 function renderSkills(el) {
-  const skills = PORTFOLIO_CONFIG.skills;
-  const tags   = PORTFOLIO_CONFIG.techTags;
+  const groups = PORTFOLIO_CONFIG.skills;
   el.innerHTML = `
     <div class="panel-header">
       <span class="panel-icon">⚡</span>
       <div class="panel-title">SKILLS FORGE</div>
     </div>
-    <div class="section-label">MASTERED ABILITIES</div>
-    ${skills.map(s => `
-      <div class="skill-row">
-        <span class="skill-name">${s.name}</span>
-        <div class="skill-bar"><div class="skill-fill" data-pct="${s.pct}" style="width:0%"></div></div>
-        <span class="skill-pct">${s.pct}%</span>
-      </div>
+    <div class="section-label">TOOLS & METHODS BY APPLIED AREA</div>
+    ${groups.map(group => `
+      <section class="skill-group" aria-label="${group.group}">
+        <h3 class="skill-group-title">${group.group}</h3>
+        <div class="skill-group-tags">
+          ${group.items.map(item => `<span class="tag">${item}</span>`).join('')}
+        </div>
+      </section>
     `).join('')}
-    <div class="section-label" style="margin-top:26px;">ARSENAL</div>
-    <div style="display:flex; flex-wrap:wrap; gap:8px;">
-      ${tags.map(t => `<div class="tag" style="font-size:14px; border-color:var(--border); color:var(--border);">${t}</div>`).join('')}
-    </div>
   `;
 }
 
@@ -656,6 +649,7 @@ function renderExperience(el) {
 function renderProjects(el) {
   const projects = PORTFOLIO_CONFIG.projects;
   const gh       = LIVE.github;
+  const featuredRepoKeys = new Set(projects.map(project => getGitHubRepoKey(project.link)).filter(Boolean));
 
   el.innerHTML = `
     <div class="panel-header">
@@ -663,54 +657,114 @@ function renderProjects(el) {
       <div class="panel-title">ARTIFACT HALL</div>
     </div>
     <div class="section-label">LEGENDARY CREATIONS</div>
-    ${projects.map(p => `
-      <div class="project-card" ${p.link ? `onclick="window.open('${p.link}','_blank')" style="cursor:pointer;"` : ''}>
-        <div class="project-name">${p.name}${p.link ? ' <span style="font-size:11px;color:var(--dim);">↗</span>' : ''}</div>
-        <div style="font-size:15px; color:var(--text); line-height:1.6;">${p.desc}</div>
-        <div class="project-tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-      </div>
-    `).join('')}
+    ${projects.map(project => {
+      const cardContent = `
+        <div class="project-name">${project.name}${project.link ? ' <span style="font-size:11px;color:var(--dim);">↗</span>' : ''}</div>
+        <div style="font-size:15px; color:var(--text); line-height:1.6;">${project.desc}</div>
+        <div class="project-tags">${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>
+        <div class="project-access">${project.link ? '↗ Open public repository' : 'No public repository or demo linked'}</div>
+      `;
+      return project.link
+        ? `<a class="project-card project-link" href="${project.link}" target="_blank" rel="noopener noreferrer">${cardContent}</a>`
+        : `<article class="project-card">${cardContent}</article>`;
+    }).join('')}
 
     <div class="section-label" style="margin-top:26px;">
-      🐙 GITHUB REPOSITORIES
+      🐙 MORE GITHUB REPOSITORIES
       <span style="color:var(--green); font-size:10px; margin-left:6px;">⚡ LIVE</span>
-      <span id="gh-meta" style="font-size:12px; color:var(--dim); margin-left:6px;">
-        ${gh ? `${gh.repos} repos · ${gh.followers} followers` : '⏳ fetching...'}
-      </span>
+      <span id="gh-meta" aria-live="polite" style="font-size:12px; color:var(--dim); margin-left:6px;">⏳ fetching...</span>
     </div>
-    <div id="gh-repo-list">
-      ${gh ? buildRepoCards(gh.repoList) : spinner('FETCHING GITHUB REPOS...')}
-    </div>
+    <div id="gh-repo-list" aria-live="polite"></div>
   `;
 
-  if (!gh) {
-    retryWhenReady('github', (g) => {
-      const list = document.getElementById('gh-repo-list');
-      const meta = document.getElementById('gh-meta');
-      if (list) list.innerHTML = buildRepoCards(g.repoList);
-      if (meta) meta.textContent = `${g.repos} repos · ${g.followers} followers`;
-    });
+  const updateRepoList = (g) => {
+    const list = document.getElementById('gh-repo-list');
+    const meta = document.getElementById('gh-meta');
+    const repos = g.repoList.filter(repo => !featuredRepoKeys.has(getGitHubRepoKey(repo.url)));
+    if (list) list.replaceChildren(buildRepoCards(repos));
+    if (meta) meta.textContent = `${g.repos} public repos · ${g.followers} followers`;
+  };
+  if (gh) updateRepoList(gh);
+  else {
+    const list = document.getElementById('gh-repo-list');
+    if (list) list.innerHTML = spinner('FETCHING GITHUB REPOS...');
+    retryWhenReady('github', updateRepoList);
   }
 }
 
 function buildRepoCards(repos) {
-  if (!repos || repos.length === 0) return `<div style="color:var(--dim);font-size:15px;padding:12px;">No public repos found.</div>`;
-  return repos.slice(0, 12).map(r => `
-    <div class="project-card" onclick="window.open('${r.url}','_blank')" style="cursor:pointer; margin-bottom:10px;">
-      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap;">
-        <div class="project-name" style="font-size:13px;">🐙 ${r.name} <span style="font-size:11px;color:var(--dim);">↗</span></div>
-        <div style="display:flex; gap:12px; font-size:13px; color:var(--dim); flex-shrink:0;">
-          <span title="Stars">⭐ ${r.stars}</span>
-          <span title="Forks">🍴 ${r.forks}</span>
-        </div>
-      </div>
-      <div style="font-size:14px; color:var(--text); margin:5px 0;">${r.description}</div>
-      <div style="display:flex; gap:10px; align-items:center; margin-top:7px; flex-wrap:wrap;">
-        ${r.language ? `<span class="tag" style="border-color:var(--accent);color:var(--accent);">${r.language}</span>` : ''}
-        <span style="font-size:12px; color:var(--dim);">Updated ${r.updated}</span>
-      </div>
-    </div>
-  `).join('');
+  const fragment = document.createDocumentFragment();
+  if (!repos || repos.length === 0) {
+    const empty = document.createElement('p');
+    empty.className = 'repo-empty';
+    empty.textContent = 'All public repositories are featured above.';
+    fragment.appendChild(empty);
+    return fragment;
+  }
+
+  repos.slice(0, 12).forEach(repo => {
+    const card = document.createElement('article');
+    card.className = 'project-card github-repo-card';
+
+    const heading = document.createElement('div');
+    heading.className = 'repo-card-heading';
+    const repoUrl = getGitHubRepoUrl(repo.url);
+    const name = document.createElement(repoUrl ? 'a' : 'span');
+    name.className = 'project-name repo-name';
+    name.textContent = `🐙 ${repo.name}${repoUrl ? ' ↗' : ''}`;
+    if (repoUrl) {
+      name.href = repoUrl;
+      name.target = '_blank';
+      name.rel = 'noopener noreferrer';
+    }
+    heading.appendChild(name);
+
+    const stats = document.createElement('div');
+    stats.className = 'repo-stats';
+    const stars = document.createElement('span');
+    stars.textContent = `⭐ ${Number(repo.stars) || 0}`;
+    stars.setAttribute('aria-label', `Stars: ${Number(repo.stars) || 0}`);
+    const forks = document.createElement('span');
+    forks.textContent = `🍴 ${Number(repo.forks) || 0}`;
+    forks.setAttribute('aria-label', `Forks: ${Number(repo.forks) || 0}`);
+    stats.append(stars, forks);
+    heading.appendChild(stats);
+
+    const description = document.createElement('p');
+    description.className = 'repo-description';
+    description.textContent = repo.description || 'No description provided.';
+
+    const details = document.createElement('div');
+    details.className = 'repo-details';
+    if (repo.language) {
+      const language = document.createElement('span');
+      language.className = 'tag repo-language';
+      language.textContent = repo.language;
+      details.appendChild(language);
+    }
+    const updated = document.createElement('span');
+    updated.className = 'repo-updated';
+    updated.textContent = `Updated ${repo.updated || 'date unavailable'}`;
+    details.appendChild(updated);
+
+    card.append(heading, description, details);
+    fragment.appendChild(card);
+  });
+  return fragment;
+}
+
+function getGitHubRepoUrl(value) {
+  try {
+    const url = new URL(value);
+    return url.protocol === 'https:' && url.hostname === 'github.com' ? url.href : null;
+  } catch {
+    return null;
+  }
+}
+
+function getGitHubRepoKey(value) {
+  const url = getGitHubRepoUrl(value);
+  return url ? new URL(url).pathname.replace(/\/$/, '').toLowerCase() : '';
 }
 
 /* ── FREELANCE PROFILES ─────── */
@@ -819,11 +873,11 @@ function renderAchievements(el) {
       <div class="stat-box"><div class="stat-label">TECH STACK</div><div class="stat-value highlight">${p.techStackSize}</div></div>
       <div class="stat-box">
         <div class="stat-label">🐙 GITHUB REPOS</div>
-        <div class="stat-value highlight" id="ac-repos">${gh ? gh.repos : '⏳'}</div>
+        <div class="stat-value highlight" id="ac-repos">⏳</div>
       </div>
       <div class="stat-box">
         <div class="stat-label">🐙 GH FOLLOWERS</div>
-        <div class="stat-value highlight" id="ac-followers">${gh ? gh.followers : '⏳'}</div>
+        <div class="stat-value highlight" id="ac-followers">⏳</div>
       </div>
       <div class="stat-box">
         <div class="stat-label">💼 FREELANCE PROFILES</div>
@@ -837,12 +891,14 @@ function renderAchievements(el) {
     </div>
   `;
 
-  if (!gh) retryWhenReady('github', (g) => {
+  const updateGitHubStats = (g) => {
     const r = document.getElementById('ac-repos');
     const f = document.getElementById('ac-followers');
-    if (r) r.textContent = g.repos;
-    if (f) f.textContent = g.followers;
-  });
+    if (r) r.textContent = String(g.repos);
+    if (f) f.textContent = String(g.followers);
+  };
+  if (gh) updateGitHubStats(gh);
+  else retryWhenReady('github', updateGitHubStats);
 
 }
 
@@ -856,7 +912,7 @@ function renderContact(el) {
 
   const links = [
     c.linkedin      ? { href: c.linkedin,                 icon: '💼', label: 'LinkedIn',          value: c.linkedin.split('/in/').pop().replace(/\/$/, ''), external: true } : null,
-    c.github        ? { href: c.github,                   icon: '🐙', label: 'GitHub',            value: gh ? `@${c.github.split('/').filter(Boolean).pop()} · ${gh.repos} repos · ${gh.followers} followers` : '⏳ loading...', id: 'ct-github', external: true } : null,
+    c.github        ? { href: c.github,                   icon: '🐙', label: 'GitHub',            value: `@${c.github.split('/').filter(Boolean).pop()}`, id: 'ct-github', external: true } : null,
     c.credly        ? { href: c.credly,                   icon: '🏅', label: 'Credly',            value: 'View badges & credentials', external: true } : null,
     c.email         ? { href: `mailto:${c.email}`,        icon: '📧', label: 'Email',             value: c.email } : null,
     c.academicEmail ? { href: `mailto:${c.academicEmail}`,icon: '🎓', label: 'University Email', value: c.academicEmail } : null,
@@ -893,10 +949,12 @@ function renderContact(el) {
     </div>
   `;
 
-  if (!gh) retryWhenReady('github', (g) => {
+  const updateGitHubContact = (g) => {
     const el = document.getElementById('ct-github');
     if (el) el.textContent = `@Abdulrahman-Alfeqy · ${g.repos} repos · ${g.followers} followers`;
-  });
+  };
+  if (gh) updateGitHubContact(gh);
+  else retryWhenReady('github', updateGitHubContact);
 
 }
 

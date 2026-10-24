@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">Abdulrahman Alfeqy — AI and Machine Learning Engineer</title>
+  <desc id="description">RPG-inspired portfolio preview with a focus on agentic AI, LLM integration, data engineering, and Django.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101b45"/>
+      <stop offset="0.58" stop-color="#090f27"/>
+      <stop offset="1" stop-color="#060a18"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#00e5ff"/>
+      <stop offset="1" stop-color="#b44bff"/>
+    </linearGradient>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M42 0H0V42" fill="none" stroke="#9aa9ff" stroke-opacity=".055" stroke-width="1"/>
+    </pattern>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#background)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <path d="M0 508H1200" stroke="#00e5ff" stroke-opacity=".12"/>
+  <circle cx="1080" cy="90" r="2" fill="#fff" opacity=".8"/>
+  <circle cx="920" cy="160" r="2" fill="#00e5ff" opacity=".8"/>
+  <circle cx="1120" cy="380" r="2" fill="#ffd700" opacity=".8"/>
+  <circle cx="785" cy="78" r="2" fill="#fff" opacity=".55"/>
+  <circle cx="62" cy="445" r="2" fill="#b44bff" opacity=".9"/>
+
+  <rect x="32" y="32" width="1136" height="566" rx="8" fill="none" stroke="#00e5ff" stroke-opacity=".58" stroke-width="2"/>
+  <rect x="44" y="44" width="6" height="542" fill="url(#accent)"/>
+
+  <text x="82" y="104" fill="#00e5ff" font-family="Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="5">QUEST FOR THE CODE</text>
+  <text x="82" y="204" fill="#f2f5ff" font-family="Arial, sans-serif" font-size="58" font-weight="800" letter-spacing="-1">ABDULRAHMAN</text>
+  <text x="82" y="270" fill="#f2f5ff" font-family="Arial, sans-serif" font-size="58" font-weight="800" letter-spacing="-1">ALFEQY</text>
+  <rect x="82" y="302" width="620" height="4" rx="2" fill="url(#accent)" filter="url(#glow)"/>
+  <text x="82" y="355" fill="#00e5ff" font-family="Arial, sans-serif" font-size="25" font-weight="700" letter-spacing="1">AI &amp; MACHINE LEARNING ENGINEER</text>
+  <text x="82" y="397" fill="#c6cee8" font-family="Arial, sans-serif" font-size="21">Third-year AI student · Menofia University, Egypt</text>
+
+  <rect x="82" y="438" width="242" height="50" rx="5" fill="#00e5ff" fill-opacity=".1" stroke="#00e5ff" stroke-opacity=".85"/>
+  <text x="101" y="470" fill="#00e5ff" font-family="Arial, sans-serif" font-size="17" font-weight="700" letter-spacing="2">LVL 3 AI ENGINEER</text>
+  <text x="82" y="540" fill="#d9def2" font-family="Arial, sans-serif" font-size="19">Agentic AI  ·  LLM Integration  ·  Data Engineering  ·  Django</text>
+
+  <g transform="translate(850 145)">
+    <rect width="250" height="310" rx="10" fill="#0c1430" stroke="#b44bff" stroke-opacity=".7" stroke-width="2"/>
+    <text x="22" y="38" fill="#ffd700" font-family="Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="3">SYSTEM ONLINE</text>
+    <circle cx="204" cy="33" r="6" fill="#00ff88" filter="url(#glow)"/>
+    <path d="M125 76V109M125 201V234M54 155H84M166 155H196M74 104L95 125M155 185L176 206M176 104L155 125M95 185L74 206" stroke="#00e5ff" stroke-opacity=".7" stroke-width="3"/>
+    <circle cx="125" cy="155" r="48" fill="#101d45" stroke="#00e5ff" stroke-width="3" filter="url(#glow)"/>
+    <path d="M104 146h42M104 158h42M111 170h28" stroke="#f2f5ff" stroke-width="5" stroke-linecap="square"/>
+    <circle cx="54" cy="155" r="9" fill="#ffd700"/>
+    <circle cx="196" cy="155" r="9" fill="#b44bff"/>
+    <circle cx="74" cy="104" r="7" fill="#00e5ff"/>
+    <circle cx="176" cy="104" r="7" fill="#00e5ff"/>
+    <circle cx="74" cy="206" r="7" fill="#00e5ff"/>
+    <circle cx="176" cy="206" r="7" fill="#00e5ff"/>
+    <rect x="26" y="254" width="198" height="8" rx="4" fill="#1c294e"/>
+    <rect x="26" y="254" width="146" height="8" rx="4" fill="url(#accent)"/>
+    <text x="26" y="288" fill="#97a4ce" font-family="Arial, sans-serif" font-size="12" letter-spacing="2">BUILD · LEARN · SHIP</text>
+  </g>
+
+  <text x="1080" y="565" text-anchor="end" fill="#7886b4" font-family="Arial, sans-serif" font-size="14" letter-spacing="2">abdulrahman-alfeqy.github.io</text>
+</svg>

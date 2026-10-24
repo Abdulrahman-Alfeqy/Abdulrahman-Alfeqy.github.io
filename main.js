@@ -12,6 +12,19 @@ const LIVE = {
   loading: { github: false }
 };
 
+function resolveGitHubRepoDescription(repo) {
+  const apiDescription = String(repo.description || '').trim();
+  if (apiDescription) return apiDescription;
+
+  const repoKey = getGitHubRepoKey(repo.url);
+  const configuredProject = PORTFOLIO_CONFIG.projects.find(project =>
+    getGitHubRepoKey(project.link) === repoKey
+  );
+  if (configuredProject?.desc?.trim()) return configuredProject.desc.trim();
+
+  return `See the ${repo.name} README for the project overview and implementation details.`;
+}
+
 /* ══════════════════════════════════════════
    GITHUB API  — api.github.com (no auth needed)
    Pulls: followers, repo count, public repo list
@@ -39,7 +52,11 @@ async function fetchGitHub() {
       repoList:  Array.isArray(reposData)
         ? reposData.map(r => ({
             name:        r.name,
-            description: r.description || 'No description provided.',
+            description: resolveGitHubRepoDescription({
+              name: r.name,
+              url: r.html_url,
+              description: r.description
+            }),
             stars:       r.stargazers_count,
             forks:       r.forks_count,
             language:    r.language || null,
@@ -732,7 +749,7 @@ function buildRepoCards(repos) {
 
     const description = document.createElement('p');
     description.className = 'repo-description';
-    description.textContent = repo.description || 'No description provided.';
+    description.textContent = resolveGitHubRepoDescription(repo);
 
     const details = document.createElement('div');
     details.className = 'repo-details';

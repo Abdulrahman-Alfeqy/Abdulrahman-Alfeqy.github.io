@@ -114,7 +114,7 @@ const PORTFOLIO_CONFIG = {
   projects: [
     {
       name: "🛡️ Cyber-Intel AI Agent",
-      desc: "Microsoft Agents League submission for enterprise security. Built on Azure AI Projects SDK with Foundry IQ retrieval-augmented generation to ground policy decisions and automate Tier-1 incident response. FastMCP threat-intelligence tools run over Cloudflare Quick Tunnels (SSE / streamable HTTP) with human approval and no static infrastructure.",
+      desc: "Microsoft Agents League 2026 reasoning-agent submission that grounds security decisions in corporate policies through Foundry IQ and checks live IP or malware intelligence through a local FastMCP server exposed over a Cloudflare Tunnel. Built with Azure AI Projects and o4-mini, it requests analyst approval before threat-intelligence tool calls or critical actions.",
       tags: ["Python", "Azure AI Projects SDK", "Foundry IQ", "FastMCP", "Cloudflare Tunnels"],
       link: "https://github.com/Abdulrahman-Alfeqy/cyber-intel-agent"
     },
@@ -126,13 +126,13 @@ const PORTFOLIO_CONFIG = {
     },
     {
       name: "🏠 HouseHub+ — AI Public Housing Allocation",
-      desc: "USAII Global AI Hackathon anti-fraud housing system (63/70). A RandomForestRegressor scores applicant housing need from 0–100; OpenCV document inspection, SHA-256 PII hashing, and dual citizen/admin portals support safer eligibility review.",
+      desc: "USAII Global AI Hackathon anti-fraud housing prototype (63/70). It hashes personally identifying data with SHA-256, uses OpenCV Error Level Analysis to flag potentially manipulated documents, and applies a RandomForestRegressor trained on synthetic data to score housing need from 0–100. Citizen and administrator portals support applications, prioritization, demand mapping, and manual review.",
       tags: ["Python", "Scikit-Learn", "Streamlit", "OpenCV", "EasyOCR", "Folium"],
       link: "https://github.com/Abdulrahman-Alfeqy/HouseHub-"
     },
     {
       name: "🚗 CARVIX — Smart Vehicle Maintenance",
-      desc: "Full-stack, role-based vehicle maintenance platform for Owners, Technicians, and Administrators, covering vehicles, maintenance, appointments, technician workflows, and spare-parts inventory. Uses Django MVT with service and selector layers, PostgreSQL, demo data, automated tests, and a Gemini assistant restricted to each user’s permissions.",
+      desc: "Role-based Django and PostgreSQL vehicle-maintenance platform for Owners, Technicians, and Administrators. Owners manage vehicles and bookings; Administrators assign technicians; Technicians record completed work and parts. An authenticated Gemini assistant can use only allowlisted, server-validated tools scoped to the signed-in user’s permissions.",
       tags: ["Python", "Django", "PostgreSQL", "Google Gemini API", "Docker"],
       link: "https://github.com/Abdulrahman-Alfeqy/carvix-smart-maintenance"
     },

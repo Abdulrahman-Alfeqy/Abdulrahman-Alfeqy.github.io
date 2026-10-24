@@ -35,6 +35,12 @@ This backlog captures the improvements identified while reviewing the current po
 - [x] Update `images/og-image.png` so it matches the current AI/ML positioning and page metadata.
 - [x] Remove unverified Twitter/X account metadata.
 
+## 6. Keep live GitHub project cards descriptive — complete
+
+- [x] Review all seven public GitHub repositories and use the existing project summaries for repositories whose GitHub About description is blank.
+- [x] Replace generic missing-description text with the matching portfolio summary or a useful README pointer for future repositories.
+- [x] Align the Cyber-Intel, HouseHub, and CARVIX summaries with their repository documentation.
+
 ## Remaining review checks
 
 - [x] A first-time visitor can identify the role, student context, resume, and contact route immediately.

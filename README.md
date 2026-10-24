@@ -50,7 +50,7 @@ The portfolio also describes client and analytics work, including the Honor Boar
 - Eight RPG-inspired sections for profile, skills, experience, projects, freelance profiles, education, achievements, and contact.
 - First-screen resume download and direct email action, alongside the game entry button.
 - Skills grouped by applied area instead of self-assigned percentage scores.
-- Live GitHub repository and follower data, with a placeholder state if the API is unavailable.
+- Live GitHub repository and follower data, with curated portfolio descriptions when a repository has no GitHub About description and a placeholder state if the API is unavailable.
 - Email-first contact links for personal and university email.
 - Animated starfield, XP progression, HUD, generated sound effects, and optional ambient audio controls.
 - Keyboard-operable zone navigation, project links, and dialog controls with visible focus states.

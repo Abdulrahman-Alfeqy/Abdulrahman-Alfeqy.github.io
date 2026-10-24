@@ -396,7 +396,7 @@ function bootFromConfig() {
   const yr = new Date().getFullYear();
 
   document.getElementById('t-name').textContent    = `⚔ ${p.name} ⚔`;
-  document.getElementById('t-avatar').innerHTML    = `<img src="${p.avatar}" alt="" aria-hidden="true" style="width: 80px; height: 80px; image-rendering: pixelated; border-radius: 8px;">`;
+  document.getElementById('t-avatar').innerHTML    = `<img src="${p.avatar}" style="width: 80px; height: 80px; image-rendering: pixelated; border-radius: 8px;">`;
   document.getElementById('t-role').textContent    = p.title;
   document.getElementById('t-level').textContent   = formatLevel(p.level);
   document.getElementById('t-tagline').textContent = p.tagline;
@@ -578,7 +578,7 @@ function renderAbout(el) {
       <div class="panel-title">CHARACTER PROFILE</div>
     </div>
     <div style="display:flex; gap:22px; flex-wrap:wrap; margin-bottom:22px;">
-      <div style="flex-shrink:0;"><img src="${p.avatar}" alt="" aria-hidden="true" style="width: 120px; height: 120px; image-rendering: pixelated; border-radius: 12px; border: 2px solid var(--purple); filter:drop-shadow(0 0 20px var(--purple));"></div>
+      <div style="flex-shrink:0;"><img src="${p.avatar}" style="width: 120px; height: 120px; image-rendering: pixelated; border-radius: 12px; border: 2px solid var(--purple); filter:drop-shadow(0 0 20px var(--purple));"></div>
       <div style="flex:1; min-width:200px;">
         <div style="font-family:'Orbitron',monospace; font-size:20px; color:var(--gold); margin-bottom:5px;">${p.name}</div>
         <div style="font-size:15px; color:var(--border); margin-bottom:14px;">${p.title} @ ${p.company}</div>

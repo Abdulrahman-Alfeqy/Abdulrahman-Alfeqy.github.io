@@ -647,7 +647,7 @@ function renderExperience(el) {
       <span class="panel-icon">💼</span>
       <div class="panel-title">BATTLE LOG</div>
     </div>
-    <div class="section-label">PROFESSIONAL CAMPAIGNS</div>
+    <div class="section-label">EXPERIENCE &amp; TRAINING</div>
     ${exp.map(e => `
       <div class="timeline-item">
         <div class="timeline-dot">${e.icon}</div>
@@ -676,10 +676,12 @@ function renderProjects(el) {
     <div class="section-label">LEGENDARY CREATIONS</div>
     ${projects.map(project => {
       const cardContent = `
+        ${project.context ? `<div class="project-context">${project.context}</div>` : ''}
+        ${project.image ? `<figure class="project-media"><img src="${project.image}" alt="${project.imageAlt || ''}" loading="lazy" decoding="async"></figure>` : ''}
         <div class="project-name">${project.name}${project.link ? ' <span style="font-size:11px;color:var(--dim);">↗</span>' : ''}</div>
         <div style="font-size:15px; color:var(--text); line-height:1.6;">${project.desc}</div>
         <div class="project-tags">${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>
-        <div class="project-access">${project.link ? '↗ Open public repository' : 'No public repository or demo linked'}</div>
+        <div class="project-access">${project.link ? '↗ Open public repository' : project.image ? 'Training project · source files are not publicly linked' : 'No public repository or demo linked'}</div>
       `;
       return project.link
         ? `<a class="project-card project-link" href="${project.link}" target="_blank" rel="noopener noreferrer">${cardContent}</a>`

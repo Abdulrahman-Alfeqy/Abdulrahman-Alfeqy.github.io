@@ -144,8 +144,29 @@ const PORTFOLIO_CONFIG = {
     },
     {
       name: "🛒 FOODMART — Multi-Year Retail Intelligence",
-      desc: "Automated ETL and Star Schema consolidating 270,000+ retail records across 19 stores in the USA, Mexico, and Canada. YoY, QoQ, and rolling-12-month measures cut month-end reconciliation time by 70%.",
-      tags: ["Power BI", "Power Query / M", "DAX", "Star Schema", "ETL"],
+      context: "NTI DATA ANALYSIS TRAINING",
+      image: "assets/projects/foodmart-store-and-product.png",
+      imageAlt: "FoodMart store-performance table showing transaction and retail-sales totals beside a country-colored product sales scatter plot.",
+      desc: "NTI retail BI project covering 1997–1998: 269,720 transaction records and $1,764,546.44 in retail sales across 24 stores in the United States, Mexico, and Canada. A Power Query ETL and star-schema model support store, region, product, and time analysis with YoY, QoQ, and rolling-12-month measures. The original project summary reports a 70% reduction in month-end reconciliation time.",
+      tags: ["Power BI", "Power Query / M", "DAX Time Intelligence", "Star Schema", "ETL"],
+      link: ""
+    },
+    {
+      name: "📊 METRICALIST — Mobile Game Monetization",
+      context: "NTI GRADUATION PROJECT",
+      image: "assets/projects/metricalist-verified-panels.jpg",
+      imageAlt: "Verified Power BI views of mobile-game revenue by genre, player counts by country and payer status, and days to first purchase.",
+      desc: "NTI graduation project analyzing January–August 2025 in-app purchases for 3,024 players, with $296,259.31 in recorded revenue. Power Query, a star schema, and 18+ DAX measures support payer share, Whale/Dolphin/Minnow segments, revenue by genre and country, and purchase timing. With missing purchase amounts treated as $0 per the project methodology, the payer share is 95.47%; the 68 Whales (2.25% of players) generated 59.27% of revenue, and the average time to first purchase was 15.4 days.",
+      tags: ["Power BI", "DAX", "Power Query", "Star Schema", "Payer & Revenue Analysis"],
+      link: ""
+    },
+    {
+      name: "📈 SUPERSTORE — Executive Financial Reporting",
+      context: "NTI DATA ANALYSIS TRAINING",
+      image: "assets/projects/superstore-dashboard.png",
+      imageAlt: "Superstore dashboard with total revenue, order count, profit margin, profit, customers, monthly revenue trend, and product and category charts.",
+      desc: "NTI Superstore reporting project built in Excel with Power Pivot and DAX, with related Power BI reports over the same 2014–2017 sales data. Across 1,007 line items and 488 orders, the source records $1,129,519.41 in sales and $401,108.09 in profit at a 35.51% margin. The dashboard also tracks 366 customers, average order value and delivery time, monthly trends, and product and category performance.",
+      tags: ["Microsoft Excel", "Power Pivot", "DAX", "Power BI", "Executive Reporting"],
       link: ""
     },
     {
@@ -153,18 +174,6 @@ const PORTFOLIO_CONFIG = {
       desc: "Cleaned and analyzed 98,199 eligible Brazilian marketplace orders (2016–2018), covering 94,983 customers and BRL 13.49M in product revenue. Late deliveries were 6.8% of orders and averaged 2.27/5 reviews versus 4.29 for on-time deliveries; only 3% of customers ordered again. Includes safe multi-table joins, data-quality checks, 12 charts, and retention and logistics recommendations.",
       tags: ["Python", "Pandas", "Jupyter", "Matplotlib", "EDA", "Data Cleaning"],
       link: "https://github.com/Abdulrahman-Alfeqy/olist-ecommerce-analysis"
-    },
-    {
-      name: "📊 METRICALIST — Mobile Game Monetization",
-      desc: "Player-monetization analytics with Power Query ingestion, Whale/Dolphin/Minnow segmentation, ARPU and payer-conversion measures, and cohort-retention matrices comparing country and game genre.",
-      tags: ["Power BI", "DAX", "Power Query", "Cohort Analysis"],
-      link: ""
-    },
-    {
-      name: "📈 Executive Financial Reporting",
-      desc: "Interactive executive reporting environment built in Microsoft Excel using Power Pivot, advanced DAX, and custom interface design.",
-      tags: ["Advanced Excel", "Power Pivot", "DAX"],
-      link: ""
     },
     {
       name: "⚙️ Automated ML Evaluation Pipeline",

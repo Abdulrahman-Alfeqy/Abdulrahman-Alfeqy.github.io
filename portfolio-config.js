@@ -21,7 +21,7 @@ const PORTFOLIO_CONFIG = {
     level:           3,
     location:        "Menofia, Egypt 🇪🇬",
     status:          "Open to Freelance & AI/ML Opportunities",
-    avatar:          "images/avatar_warrior.png",
+    avatar:          "images/abdulrahman-github-avatar.jpg",
     avatarEmoji:     "⚔️",
     bio:             "Third-year B.Sc. Artificial Intelligence student at Menofia University (Machine Intelligence) with a 3.16/4.0 GPA and an upward trend (3.59 latest semester). Builds agentic AI systems, retrieval-augmented reasoning pipelines, predictive ML models, full-stack Django applications, and end-to-end BI solutions. Currently studying through the University of Tokyo GCI World program and a fully funded BHN Academy scholarship with DataCamp.",
     creed:           "I build grounded AI agents, useful software, and analytical systems that solve real problems — and keep learning with every quest.",
